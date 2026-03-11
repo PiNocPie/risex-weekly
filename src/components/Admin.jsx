@@ -150,13 +150,15 @@ function StoryEditor({ story, index, onChange, onRemove }) {
 }
 
 export default function Admin({
-  editions, onSave, onPublish, onFetchNews, onSendEmail,
+  editions, onSave, onPublish, onFetchNews, onFetchCT, onSendEmail,
   fetchingNews, saving, sending, subscriberCount,
 }) {
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')
   const [weekDate, setWeekDate] = useState(new Date().toISOString().slice(0, 10))
   const [stories, setStories] = useState([])
+  const [ctBuzz, setCtBuzz] = useState([])
+  const [fetchingCT, setFetchingCT] = useState(false)
   const [editingId, setEditingId] = useState(null)
   const [msg, setMsg] = useState(null)
   const [snapshotText, setSnapshotText] = useState('')
@@ -179,6 +181,7 @@ export default function Admin({
     setSummary(ed.summary || '')
     setWeekDate(ed.weekDate || '')
     setStories(ed.stories || [])
+    setCtBuzz(ed.ctBuzz || [])
     setSnapshotText((ed.snapshot || []).map(s => `${s.symbol} ${s.price} ${s.change}`).join('\n'))
   }
 
@@ -188,6 +191,7 @@ export default function Admin({
     setSummary('')
     setWeekDate(new Date().toISOString().slice(0, 10))
     setStories([])
+    setCtBuzz([])
     setSnapshotText('')
   }
 
@@ -206,10 +210,11 @@ export default function Admin({
   const handleSave = async (status) => {
     const edition = {
       id: editingId,
-      title: title || `RISEx Weekly \u2014 ${weekDate}`,
+      title: title || `Trends \u2014 ${weekDate}`,
       summary,
       weekDate,
       stories,
+      ctBuzz,
       snapshot: parseSnapshot(snapshotText),
       status,
       editionNumber: editingId
@@ -232,6 +237,21 @@ export default function Admin({
     }
     setTimeout(() => setMsg(null), 4000)
   }
+
+  const handleFetchCT = async () => {
+    setFetchingCT(true)
+    const tweets = await onFetchCT()
+    if (tweets?.length > 0) {
+      setCtBuzz(tweets)
+      setMsg({ ok: true, text: `Fetched ${tweets.length} CT tweets.` })
+    } else {
+      setMsg({ ok: false, text: 'No CT tweets found. Check TWITTER_BEARER_TOKEN.' })
+    }
+    setFetchingCT(false)
+    setTimeout(() => setMsg(null), 4000)
+  }
+
+  const removeTweet = (i) => setCtBuzz(prev => prev.filter((_, idx) => idx !== i))
 
   const handleSendEmail = async () => {
     if (!editingId) {
@@ -340,6 +360,18 @@ export default function Admin({
           >
             {fetchingNews ? 'Fetching news...' : 'Fetch Crypto & Commodity News'}
           </button>
+          <button
+            onClick={handleFetchCT}
+            disabled={fetchingCT}
+            className="font-mono text-xs font-bold px-4 py-2.5 rounded transition-all"
+            style={{
+              background: '#22d3ee20', border: '1px solid #22d3ee40',
+              color: '#22d3ee', cursor: fetchingCT ? 'wait' : 'pointer',
+              opacity: fetchingCT ? 0.6 : 1,
+            }}
+          >
+            {fetchingCT ? 'Fetching CT...' : 'Fetch CT Buzz'}
+          </button>
           <button onClick={addStory} className="font-mono text-xs px-4 py-2.5 rounded" style={{ border: `1px solid ${T.border2}`, color: T.dim, background: 'none', cursor: 'pointer' }}>
             + Add Story Manually
           </button>
@@ -349,6 +381,27 @@ export default function Admin({
         {stories.map((story, i) => (
           <StoryEditor key={story.id || i} story={story} index={i} onChange={updateStory} onRemove={removeStory} />
         ))}
+
+        {/* CT Buzz preview */}
+        {ctBuzz.length > 0 && (
+          <div className="rounded-lg overflow-hidden" style={{ background: T.card, border: `1px solid ${T.border}` }}>
+            <div className="flex items-center justify-between px-4 py-2" style={{ borderBottom: `1px solid ${T.border}` }}>
+              <span className="font-mono text-[9px] font-bold tracking-widest" style={{ color: '#22d3ee' }}>CT BUZZ — {ctBuzz.length} TWEETS</span>
+            </div>
+            {ctBuzz.map((tweet, i) => (
+              <div key={tweet.id || i} className="flex items-center justify-between px-4 py-2" style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.card : T.surface }}>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-[10px] font-bold" style={{ color: '#22d3ee' }}>{tweet.author}</span>
+                  <p className="text-[11px] truncate" style={{ color: T.dim }}>{tweet.text?.slice(0, 100)}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 ml-3">
+                  <span className="font-mono text-[9px]" style={{ color: T.muted }}>{'\u2661'}{tweet.likes}</span>
+                  <button onClick={() => removeTweet(i)} className="font-mono text-[10px]" style={{ color: T.red, background: 'none', border: 'none', cursor: 'pointer' }}>&times;</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Action buttons */}
         {stories.length > 0 && (

@@ -173,6 +173,65 @@ function StoryCard({ story, index }) {
   )
 }
 
+function fmtNum(n) {
+  if (n >= 1000000) return `${(n / 1000000).toFixed(1)}M`
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}K`
+  return String(n)
+}
+
+function CTBuzz({ tweets }) {
+  if (!tweets || tweets.length === 0) return null
+  return (
+    <div className="rounded-lg overflow-hidden" style={{ background: T.card, border: `1px solid ${T.border}` }}>
+      <div
+        className="flex items-center gap-2 px-5 py-2.5"
+        style={{ borderBottom: `1px solid ${T.border}` }}
+      >
+        <span className="font-mono text-[10px] font-bold tracking-[0.2em]" style={{ color: T.cyan }}>
+          CT BUZZ
+        </span>
+        <span className="font-mono text-[9px]" style={{ color: T.muted }}>
+          What Crypto Twitter is talking about
+        </span>
+      </div>
+      <div className="divide-y" style={{ borderColor: T.border }}>
+        {tweets.map((tweet, i) => (
+          <a
+            key={tweet.id || i}
+            href={tweet.tweetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-5 py-3 transition-colors"
+            style={{ textDecoration: 'none', background: i % 2 === 0 ? T.card : '#0e0e0e' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#141414' }}
+            onMouseLeave={e => { e.currentTarget.style.background = i % 2 === 0 ? T.card : '#0e0e0e' }}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              {tweet.avatar && (
+                <img src={tweet.avatar} alt="" style={{ width: 16, height: 16, borderRadius: '50%' }} />
+              )}
+              <span className="font-mono text-[11px] font-bold" style={{ color: T.text }}>
+                {tweet.authorName}
+              </span>
+              <span className="font-mono text-[10px]" style={{ color: T.cyan }}>
+                {tweet.author}
+              </span>
+            </div>
+            <p className="text-[12px] leading-relaxed mb-2" style={{ color: T.dim }}>
+              {tweet.text?.length > 220 ? tweet.text.slice(0, 220) + '...' : tweet.text}
+            </p>
+            <div className="flex items-center gap-4 font-mono text-[10px]" style={{ color: T.muted }}>
+              <span>{'\u2661'} {fmtNum(tweet.likes || 0)}</span>
+              <span>{'\u21BB'} {fmtNum(tweet.retweets || 0)}</span>
+              <span>{'\u2197'}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function RISExCTA() {
   return (
     <a
@@ -335,6 +394,9 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
       {edition.stories?.map((story, i) => (
         <StoryCard key={story.id || i} story={story} index={i} />
       ))}
+
+      {/* CT Buzz */}
+      <CTBuzz tweets={edition.ctBuzz} />
 
       {/* RISEx CTA */}
       <RISExCTA />

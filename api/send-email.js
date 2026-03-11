@@ -132,6 +132,28 @@ function buildEmailHTML(edition) {
 
     ${storiesHTML}
 
+    <!-- CT Buzz -->
+    ${(edition.ctBuzz || []).length > 0 ? `
+    <div style="font-family:monospace;font-size:10px;font-weight:700;color:#22d3ee;letter-spacing:0.2em;margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid #1a1a1a;">
+      CT BUZZ
+    </div>
+    <div style="background:#0c0c0c;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;">
+      ${(edition.ctBuzz || []).map((t, i) => `
+        <a href="${t.tweetUrl || '#'}" target="_blank" style="display:block;text-decoration:none;padding:12px 16px;border-bottom:1px solid #1a1a1a;">
+          <div style="margin-bottom:4px;">
+            ${t.avatar ? `<img src="${t.avatar}" alt="" style="width:14px;height:14px;border-radius:50%;vertical-align:middle;margin-right:6px;" />` : ''}
+            <span style="font-family:monospace;font-size:11px;font-weight:700;color:#e8e8e8;">${t.authorName || ''}</span>
+            <span style="font-family:monospace;font-size:10px;color:#22d3ee;margin-left:4px;">${t.author || ''}</span>
+          </div>
+          <p style="font-size:12px;color:#999;line-height:1.5;margin:0;">${(t.text || '').slice(0, 200)}${t.text?.length > 200 ? '...' : ''}</p>
+          <div style="font-family:monospace;font-size:10px;color:#555;margin-top:6px;">
+            \u2661 ${t.likes || 0} &nbsp; \u21BB ${t.retweets || 0}
+          </div>
+        </a>
+      `).join('')}
+    </div>
+    ` : ''}
+
     <!-- CTA -->
     <a href="https://risex.trade" target="_blank" style="display:block;text-decoration:none;background:#00e67608;border:1px solid #00e67620;border-radius:8px;padding:14px 20px;margin:24px 0;">
       <div style="display:flex;align-items:center;justify-content:space-between;">

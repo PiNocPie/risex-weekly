@@ -102,7 +102,7 @@ async function main() {
   const today = new Date().toISOString().slice(0, 10)
   const edition = {
     title: `Trends — ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`,
-    summary: 'This week\'s top crypto & commodity market stories — curated intelligence powered by RISEx.',
+    summary: 'Your weekly roundup of the most important crypto & commodity market stories.',
     weekDate: today,
     editionNumber: 1,
     status: 'published',

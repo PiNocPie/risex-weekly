@@ -233,6 +233,17 @@ export default function App() {
     return stories
   }
 
+  // Fetch CT (Crypto Twitter) buzz
+  const handleFetchCT = async () => {
+    try {
+      const resp = await fetch('/api/fetch-ct')
+      const data = await resp.json()
+      return data.ok ? (data.tweets || []) : []
+    } catch {
+      return []
+    }
+  }
+
   // Send email
   const handleSendEmail = async (editionId) => {
     setSending(true)
@@ -349,6 +360,7 @@ export default function App() {
           onSave={handleSave}
           onPublish={handlePublish}
           onFetchNews={handleFetchNews}
+          onFetchCT={handleFetchCT}
           onSendEmail={handleSendEmail}
           fetchingNews={fetchingNews}
           saving={saving}

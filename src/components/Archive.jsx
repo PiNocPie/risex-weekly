@@ -13,10 +13,13 @@ export default function Archive({ editions, onSelect }) {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <div className="text-center mb-10">
-        <img src="/risex-logo.png" alt="RISEx" className="mx-auto mb-4" style={{ height: 36 }} />
         <h1 className="font-bold text-xl" style={{ color: T.text }}>Archive</h1>
-        <p className="text-sm mt-1" style={{ color: T.dim }}>
-          All past editions of RISEx Weekly
+        <div className="flex items-center justify-center gap-1.5 mt-1">
+          <span className="text-[10px]" style={{ color: T.muted }}>powered by</span>
+          <img src="/risex-logo.png" alt="RISEx" style={{ height: 16 }} />
+        </div>
+        <p className="text-sm mt-2" style={{ color: T.dim }}>
+          All past editions of Trends
         </p>
       </div>
 

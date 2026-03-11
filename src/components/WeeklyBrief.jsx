@@ -85,9 +85,21 @@ function StoryCard({ story, index }) {
         <h3 className="font-bold text-[15px] leading-snug" style={{ color: T.text }}>
           {story.headline}
         </h3>
-        <p className="font-mono text-[10px] tracking-wider" style={{ color: T.blue }}>
-          {story.source}
-        </p>
+        {story.sourceUrl ? (
+          <a
+            href={story.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[10px] tracking-wider inline-flex items-center gap-1 hover:underline"
+            style={{ color: T.blue }}
+          >
+            {story.source} {'\u2197'}
+          </a>
+        ) : (
+          <p className="font-mono text-[10px] tracking-wider" style={{ color: T.blue }}>
+            {story.source}
+          </p>
+        )}
         <p className="text-[13px] leading-relaxed" style={{ color: T.dim }}>
           {story.summary}
         </p>
@@ -169,28 +181,20 @@ function RISExCTA() {
       rel="noopener noreferrer"
       className="block rounded-lg overflow-hidden transition-all hover:scale-[1.005]"
       style={{
-        background: 'linear-gradient(135deg, #00e67615 0%, #00e67605 50%, #6366f115 100%)',
-        border: '1px solid #00e67635',
+        background: 'linear-gradient(135deg, #00e67608 0%, #00e67604 50%, #6366f108 100%)',
+        border: '1px solid #00e67620',
       }}
     >
-      <div className="flex items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-4">
-          <img src="/risex-logo.png" alt="RISEx" style={{ height: 32 }} />
-          <div>
-            <div className="font-bold text-sm" style={{ color: T.text }}>
-              Trade with an edge
-            </div>
-            <div className="text-xs mt-0.5" style={{ color: T.dim }}>
-              Act on these insights. Start trading crypto & commodities on RISEx.
-            </div>
+      <div className="flex items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-3">
+          <img src="/risex-logo.png" alt="RISEx" style={{ height: 24 }} />
+          <div className="text-xs" style={{ color: T.dim }}>
+            Explore RISEx
           </div>
         </div>
-        <div
-          className="font-mono text-xs font-bold px-5 py-2.5 rounded-lg shrink-0"
-          style={{ background: '#00e676', color: '#000' }}
-        >
-          Join RISEx {'\u2192'}
-        </div>
+        <span className="font-mono text-[11px]" style={{ color: T.green }}>
+          risex.trade {'\u2197'}
+        </span>
       </div>
     </a>
   )
@@ -205,10 +209,10 @@ function SubscribeForm({ onSubscribe, subscribing }) {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <div className="font-bold text-sm" style={{ color: T.text }}>
-            Get this in your inbox every week
+            Get Trends in your inbox
           </div>
           <div className="text-xs mt-0.5" style={{ color: T.dim }}>
-            Free weekly crypto & commodity market intelligence from RISEx
+            Free weekly crypto & commodity market roundup
           </div>
         </div>
         <form
@@ -241,8 +245,9 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
   if (!edition) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <img src="/risex-logo.png" alt="RISEx" className="mx-auto mb-6" style={{ height: 40 }} />
-        <h1 className="font-bold text-xl mb-2" style={{ color: T.text }}>RISEx Weekly</h1>
+        <h1 className="font-bold text-2xl mb-1" style={{ color: T.text }}>Trends</h1>
+        <p className="text-xs mb-1" style={{ color: T.muted }}>powered by</p>
+        <img src="/risex-logo.png" alt="RISEx" className="mx-auto mb-6" style={{ height: 28 }} />
         <p className="text-sm mb-8" style={{ color: T.dim }}>
           Weekly crypto & commodity market intelligence. Coming soon.
         </p>
@@ -264,10 +269,13 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-5">
       {/* Header */}
       <div className="text-center mb-8">
-        <img src="/risex-logo.png" alt="RISEx" className="mx-auto mb-4" style={{ height: 36 }} />
-        <h1 className="font-bold text-xl tracking-tight" style={{ color: T.text }}>
-          {edition.title || 'RISEx Weekly'}
+        <h1 className="font-bold text-2xl tracking-tight mb-1" style={{ color: T.text }}>
+          {edition.title || 'Trends'}
         </h1>
+        <div className="flex items-center justify-center gap-1.5 mb-2">
+          <span className="text-[10px]" style={{ color: T.muted }}>powered by</span>
+          <img src="/risex-logo.png" alt="RISEx" style={{ height: 16 }} />
+        </div>
         <p className="font-mono text-[11px] mt-1.5" style={{ color: T.muted }}>
           {date} {edition.editionNumber ? `\u00B7 Edition #${edition.editionNumber}` : ''}
         </p>
@@ -342,7 +350,7 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
       {/* Footer */}
       <div className="text-center py-6">
         <p className="font-mono text-[10px]" style={{ color: T.muted }}>
-          RISEx Weekly {'\u00B7'} Crypto & Commodity Market Intelligence
+          Trends {'\u00B7'} Crypto & Commodity Market Intelligence
         </p>
         <p className="font-mono text-[9px] mt-1" style={{ color: T.muted }}>
           Powered by <a href="https://risex.trade" style={{ color: T.green }}>RISEx</a>

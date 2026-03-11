@@ -69,6 +69,7 @@ function analyzeArticle(article) {
     id: `story-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     headline: article.title || 'Untitled',
     source: article.source_info?.name || article.source || 'CryptoCompare',
+    sourceUrl: article.url || article.guid || '',
     summary: (article.body || article.description || '').slice(0, 300) + (article.body?.length > 300 ? '...' : ''),
     severity,
     sentiment,
@@ -266,8 +267,9 @@ export default function App() {
             className="flex items-center gap-2.5"
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            <img src="/risex-logo.png" alt="RISEx" style={{ height: 22 }} />
-            <span className="font-bold text-sm" style={{ color: T.text }}>RISEx Weekly</span>
+            <span className="font-bold text-sm tracking-tight" style={{ color: T.text }}>Trends</span>
+            <span className="text-[10px] font-medium" style={{ color: T.muted }}>powered by</span>
+            <img src="/risex-logo.png" alt="RISEx" style={{ height: 20 }} />
           </button>
 
           <div className="flex items-center gap-1">

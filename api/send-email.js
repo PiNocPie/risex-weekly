@@ -92,7 +92,7 @@ function buildEmailHTML(edition) {
         </div>
         <div style="padding:16px;">
           <h3 style="font-size:15px;font-weight:700;color:#e8e8e8;margin:0 0 4px 0;line-height:1.4;">${story.headline}</h3>
-          <p style="font-family:monospace;font-size:10px;color:#60a5fa;margin:0 0 8px 0;letter-spacing:0.05em;">${story.source}</p>
+          <p style="font-family:monospace;font-size:10px;margin:0 0 8px 0;letter-spacing:0.05em;">${story.sourceUrl ? `<a href="${story.sourceUrl}" style="color:#60a5fa;text-decoration:none;">${story.source} \u2197</a>` : `<span style="color:#60a5fa;">${story.source}</span>`}</p>
           <p style="font-size:13px;color:#999;line-height:1.6;margin:0 0 10px 0;">${story.summary}</p>
           ${tickersHTML ? `<div style="margin-top:8px;">${tickersHTML}</div>` : ''}
         </div>
@@ -110,8 +110,9 @@ function buildEmailHTML(edition) {
   <div style="max-width:640px;margin:0 auto;padding:24px 16px;">
     <!-- Header -->
     <div style="text-align:center;margin-bottom:24px;">
-      <img src="https://risex-weekly.vercel.app/risex-logo.png" alt="RISEx" style="height:32px;margin-bottom:12px;" />
-      <h1 style="font-size:20px;font-weight:700;color:#e8e8e8;margin:0;">${edition.title || 'RISEx Weekly'}</h1>
+      <h1 style="font-size:22px;font-weight:700;color:#e8e8e8;margin:0 0 4px 0;">${edition.title || 'Trends'}</h1>
+      <p style="font-size:10px;color:#555;margin:0 0 4px 0;">powered by</p>
+      <img src="https://risex-weekly.vercel.app/risex-logo.png" alt="RISEx" style="height:20px;" />
       <p style="font-family:monospace;font-size:11px;color:#555;margin:6px 0 0 0;">
         ${date}${edition.editionNumber ? ` \u00B7 Edition #${edition.editionNumber}` : ''}
       </p>
@@ -132,15 +133,19 @@ function buildEmailHTML(edition) {
     ${storiesHTML}
 
     <!-- CTA -->
-    <a href="https://risex.trade" target="_blank" style="display:block;text-decoration:none;background:linear-gradient(135deg,#00e67615,#6366f115);border:1px solid #00e67635;border-radius:8px;padding:20px 24px;margin:24px 0;text-align:center;">
-      <div style="font-size:16px;font-weight:700;color:#e8e8e8;margin-bottom:4px;">Trade with an edge</div>
-      <div style="font-size:12px;color:#999;margin-bottom:12px;">Act on these insights. Start trading crypto & commodities on RISEx.</div>
-      <span style="display:inline-block;font-family:monospace;font-size:12px;font-weight:700;background:#00e676;color:#000;padding:8px 24px;border-radius:6px;">Join RISEx \u2192</span>
+    <a href="https://risex.trade" target="_blank" style="display:block;text-decoration:none;background:#00e67608;border:1px solid #00e67620;border-radius:8px;padding:14px 20px;margin:24px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://risex-weekly.vercel.app/risex-logo.png" alt="RISEx" style="height:20px;" />
+          <span style="font-size:12px;color:#999;">Explore RISEx</span>
+        </div>
+        <span style="font-family:monospace;font-size:11px;color:#00e676;">risex.trade \u2197</span>
+      </div>
     </a>
 
     <!-- Footer -->
     <div style="text-align:center;padding:16px 0;border-top:1px solid #1a1a1a;">
-      <p style="font-family:monospace;font-size:10px;color:#555;">RISEx Weekly \u00B7 Crypto & Commodity Market Intelligence</p>
+      <p style="font-family:monospace;font-size:10px;color:#555;">Trends \u00B7 Crypto & Commodity Market Intelligence</p>
       <p style="font-family:monospace;font-size:9px;color:#555;margin-top:4px;">
         Powered by <a href="https://risex.trade" style="color:#00e676;text-decoration:none;">RISEx</a>
       </p>

@@ -279,7 +279,7 @@ export default function App() {
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <span className="font-bold text-sm tracking-tight" style={{ color: T.text }}>Trends</span>
-            <span className="text-[10px] font-medium" style={{ color: T.muted }}>powered by</span>
+            <span className="text-[10px] font-medium" style={{ color: T.muted }}>sponsored by</span>
             <img src="/risex-logo.png" alt="RISEx" style={{ height: 20 }} />
           </button>
 

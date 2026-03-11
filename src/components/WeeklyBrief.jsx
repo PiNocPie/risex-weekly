@@ -296,6 +296,9 @@ function SubscribeForm({ onSubscribe, subscribing }) {
           </button>
         </form>
       </div>
+      <p className="text-[10px] mt-2" style={{ color: T.muted }}>
+        Your email is kept private and never shared. Unsubscribe anytime.
+      </p>
     </div>
   )
 }
@@ -305,7 +308,7 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="font-bold text-2xl mb-1" style={{ color: T.text }}>Trends</h1>
-        <p className="text-xs mb-1" style={{ color: T.muted }}>powered by</p>
+        <p className="text-xs mb-1" style={{ color: T.muted }}>sponsored by</p>
         <img src="/risex-logo.png" alt="RISEx" className="mx-auto mb-6" style={{ height: 28 }} />
         <p className="text-sm mb-8" style={{ color: T.dim }}>
           Weekly crypto & commodity market intelligence. Coming soon.
@@ -332,7 +335,7 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
           {edition.title || 'Trends'}
         </h1>
         <div className="flex items-center justify-center gap-1.5 mb-2">
-          <span className="text-[10px]" style={{ color: T.muted }}>powered by</span>
+          <span className="text-[10px]" style={{ color: T.muted }}>sponsored by</span>
           <img src="/risex-logo.png" alt="RISEx" style={{ height: 16 }} />
         </div>
         <p className="font-mono text-[11px] mt-1.5" style={{ color: T.muted }}>
@@ -415,7 +418,7 @@ export default function WeeklyBrief({ edition, onSubscribe, subscribing, subscri
           Trends {'\u00B7'} Crypto & Commodity Market Intelligence
         </p>
         <p className="font-mono text-[9px] mt-1" style={{ color: T.muted }}>
-          Powered by <a href="https://risex.trade" style={{ color: T.green }}>RISEx</a>
+          Sponsored by <a href="https://risex.trade" style={{ color: T.green }}>RISEx</a>
         </p>
       </div>
     </div>

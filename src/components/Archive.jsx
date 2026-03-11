@@ -15,7 +15,7 @@ export default function Archive({ editions, onSelect }) {
       <div className="text-center mb-10">
         <h1 className="font-bold text-xl" style={{ color: T.text }}>Archive</h1>
         <div className="flex items-center justify-center gap-1.5 mt-1">
-          <span className="text-[10px]" style={{ color: T.muted }}>powered by</span>
+          <span className="text-[10px]" style={{ color: T.muted }}>sponsored by</span>
           <img src="/risex-logo.png" alt="RISEx" style={{ height: 16 }} />
         </div>
         <p className="text-sm mt-2" style={{ color: T.dim }}>

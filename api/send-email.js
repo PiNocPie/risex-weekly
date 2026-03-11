@@ -111,7 +111,7 @@ function buildEmailHTML(edition) {
     <!-- Header -->
     <div style="text-align:center;margin-bottom:24px;">
       <h1 style="font-size:22px;font-weight:700;color:#e8e8e8;margin:0 0 4px 0;">${edition.title || 'Trends'}</h1>
-      <p style="font-size:10px;color:#555;margin:0 0 4px 0;">powered by</p>
+      <p style="font-size:10px;color:#555;margin:0 0 4px 0;">sponsored by</p>
       <img src="https://risex-weekly.vercel.app/risex-logo.png" alt="RISEx" style="height:20px;" />
       <p style="font-family:monospace;font-size:11px;color:#555;margin:6px 0 0 0;">
         ${date}${edition.editionNumber ? ` \u00B7 Edition #${edition.editionNumber}` : ''}
@@ -169,7 +169,7 @@ function buildEmailHTML(edition) {
     <div style="text-align:center;padding:16px 0;border-top:1px solid #1a1a1a;">
       <p style="font-family:monospace;font-size:10px;color:#555;">Trends \u00B7 Crypto & Commodity Market Intelligence</p>
       <p style="font-family:monospace;font-size:9px;color:#555;margin-top:4px;">
-        Powered by <a href="https://risex.trade" style="color:#00e676;text-decoration:none;">RISEx</a>
+        Sponsored by <a href="https://risex.trade" style="color:#00e676;text-decoration:none;">RISEx</a>
       </p>
     </div>
   </div>
